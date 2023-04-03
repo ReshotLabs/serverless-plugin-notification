@@ -6,6 +6,7 @@ class Webhook {
     this.url = settings.url;
     this.headers = settings.headers || {};
     this.payload = settings.payload || {};
+    this.json = settings.json || true;
   }
 
   notify(notification, logger) {
@@ -15,9 +16,8 @@ class Webhook {
     const query = {
       headers: Object.assign(this.headers, {
         'Content-Type': 'application/json',
-        'Accept': 'application/json,text/plain',
       }),
-      json: true,
+      json: this.json,
       body: Object.assign(notification, this.payload), // Merge the default notification and the custom payload
     };
 
